@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\JobDetails_Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/',JobDetails_Controller::class);
+Route::GET('/job_view',  [JobDetails_Controller::class,'job_view']);
+Route::GET('/{id}/job_edit',  [JobDetails_Controller::class,'job_edit']);
+Route::POST('/{id}/job_details_update',  [JobDetails_Controller::class,'job_details_update']);
+Route::GET('/{id}/job_delete',  [JobDetails_Controller::class,'job_delete']);
