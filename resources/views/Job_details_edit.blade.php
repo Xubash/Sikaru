@@ -19,7 +19,7 @@
         <div> 
             <label>Category  </label>
             <select name="category" id="category" > <--style="margin-left:4.5em"-->
-                <option selected>{{ $job_detail->category }}</option >
+                <option selected> {{ $categogry_selected  }}</option >
                     @foreach($categories as $categories)
                     <option value="{{ $categories->id }}" >
                         {{ $categories->name }}
@@ -34,7 +34,7 @@
         <br>
         <div> 
             <label>Opeanings</label>
-             <input type="text" class="" name="opeanings" value="{{ $job_detail->opeanings }}">
+             <input type="text" class="" name="opeanings" value="{{ $job_detail->no_of_opeanings }}">
         </div>
         <br>
         <div> 
@@ -65,10 +65,10 @@
         <div> 
             <label>City</label>
             <select name="city" id="city" > 
-                <option selected>{{ $job_detail->city }}</option >
-                    @foreach($locations as $locations)
-                    <option value="{{ $locations->name }}" >
-                        {{ $locations->name }}
+                <option selected>{{ $city_selected }}</option >
+                    @foreach($city as $city)
+                    <option value="{{ $city->id }}" >
+                        {{ $city->name }}
                     @endforeach
             </select>
         </div>

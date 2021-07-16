@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\category;
 use App\Models\company_name;
 use App\Models\job_detail;
-use App\Models\location;
+use App\Models\city;
 use App\Models\skill;
 
 class JobDetails_Controller extends Controller
@@ -19,11 +19,11 @@ class JobDetails_Controller extends Controller
     public function index()
     {
         $categories = category::all();
-        $locations = location::all();
-
+        $city = city::all();
+        // dd($city);
         return view('Job_Details',[
             'categories' => $categories,
-            'locations' => $locations
+            'city' => $city
         ]);
     }
 
@@ -47,19 +47,21 @@ class JobDetails_Controller extends Controller
     {
         // dd($request->input('title'));
         $job_details = job_detail::create([
+            'fk_category'=>$request -> input('category'),
             'title'=>$request -> input('title'),
             'no_of_opeanings'=> $request -> input('opeanings'),
             'position_type'=> $request -> input('position_type'),
-            'experience'=> $request -> input('experience'),
+            'education'=> $request -> input('education'),
             'experience'=> $request -> input('experience'),
             'posted_date'=> $request -> input('posted_date'),
             'deadline'=> $request -> input('apply_before'),
             'short_description'=> $request -> input('short_description'),
             'long_description'=> $request -> input('long_description'),
-            'category'=> $request -> input('category'),
+            'fk_city'=> $request -> input('city'),
+            'location'=> $request -> input('location'),
 
         ]);
-
+        //  dd($request->input('city'));
         return redirect('job_view');
     }
 
@@ -81,16 +83,25 @@ class JobDetails_Controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function job_edit($id)
-    {    
+    {  
         $categories = category::all();
-        $locations = location::all();
+        $city = city::all();
 
+        $categogry_selected = \DB::table('job_details')
+        ->join('categories','job_details.fk_category','=','categories.id')
+        ->where('job_details.id', $id)->get('categories.name');
+
+        $city_selected = \DB::table('job_details')
+        ->join('cities','job_details.fk_city','=','cities.id')
+        ->where('job_details.id', $id)->get('cities.name');
+        // dd($city_selected);
+        dd($categogry_selected);
         $job_detail =job_detail::find($id);
-        // dd($job_detail);
-
         return view('job_details_edit',[
             'categories' => $categories,
-            'locations' =>$locations,
+            'city' =>$city,
+            'city_selected'=>$city_selected,
+            'categogry_selected'=>$categogry_selected
 
         ])->with('job_detail' ,$job_detail);
 

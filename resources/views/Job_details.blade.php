@@ -21,7 +21,7 @@
             <select name="category" id="category" > <--style="margin-left:4.5em"-->
                 <option selected>Choose ....</option >
                     @foreach($categories as $categories)
-                    <option value="{{ $categories->name }}" >
+                    <option value="{{ $categories->id }}" >
                         {{ $categories->name }}
                     @endforeach
             </select>
@@ -66,10 +66,12 @@
             <label>City</label>
             <select name="city" id="city" > 
                 <option selected>Choose ....</option >
-                    @foreach($locations as $locations)
-                    <option value="{{ $locations->name }}" >
-                        {{ $locations->name }}
-                    @endforeach
+                    @foreach($city as $cities)
+                    <option value="{{ $cities->id }}" >
+                        {{ $cities->name}}
+                        @endforeach
+                    </option>
+                    
             </select>
         </div>
         <br>
